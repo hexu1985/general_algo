@@ -2,7 +2,7 @@
 RM = rm -f
 CXX = g++
 CXXFLAGS = -Wall -g -std=c++11
-INCLUDES = -I../../include/general_algo/heap
+INCLUDES = -I../../include/general_algo/heap2
 LDFLAGS =
 LDPATH =
 
