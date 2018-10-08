@@ -7,7 +7,7 @@ namespace general_algo {
 // in the index range [first, last). return the index of a
 // match or last if the target is not in arr
 template <typename T>
-int binSearch(const T arr[], int first, int last, const T &target);
+int binSearch(const T arr[], int first, int last, const T &target)
 {
 	int mid;					// index of the midpoint
 	T midValue;					// object that is assigned arr[mid]
