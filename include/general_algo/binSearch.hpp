@@ -29,6 +29,26 @@ int binSearch(const T arr[], int first, int last, const T &target)
 	return origLast;			// target not found
 }
 
+template <typename T>
+int lowerBound(const T arr[], int first, int last, const T &target)
+{
+	int mid;					// index of the midpoint
+	T midValue;					// object that is assigned arr[mid]
+	
+	while (first < last)		// test for nonempty sublist
+	{
+		mid = (first+last)/2;
+		midValue = arr[mid];
+		// determine which sublist to search
+		if (target <= midValue)
+			last = mid;			// search lower sublist. reset last
+		else
+			first = mid+1;		// search upper sublist. reset first
+	}
+
+	return first;
+}
+
 }	// general_algo
 
 #endif
