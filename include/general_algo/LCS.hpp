@@ -2,8 +2,7 @@
 #define GENERAL_ALGO_LCS_HPP
 
 #include <vector>
-#include <iostream>
-#include <string>
+#include <stdexcept>
 
 namespace general_algo {
 
@@ -18,7 +17,7 @@ private:
 	int Y_length;
 
 	template <typename T>
-	static void init(std::vector<std::vector<T>> &v, int m, int n)
+	static void make_matrix(std::vector<std::vector<T>> &v, int m, int n)
 	{
 		v.resize(m+1);
 		for (int i = 0; i <= m; i++) {
@@ -30,8 +29,8 @@ private:
 	{
 		int m = X_length;
 		int n = Y_length;
-		init(b, m, n);
-		init(c, m, n);
+		make_matrix(b, m, n);
+		make_matrix(c, m, n);
 
 		for (int i = 1; i <= m; ++i) {
 			for (int j = 1; j <= n; ++j) {
@@ -49,20 +48,6 @@ private:
 		}
 	}
 
-	void print(int i, int j, const std::string &sep)
-	{
-		if (i == 0 || j == 0)
-			return;
-		if (b[i][j] == '\\') {
-			print(i-1, j-1, sep);
-			std::cout << X[i-1] << sep;
-		} else if (b[i][j] == '|') {
-			print(i-1, j, sep);
-		} else {
-			print(i, j-1, sep);
-		}
-	}
-
 public:
 	LCS(const Item *x, int x_length, const Item *y, int y_length):
 		X(x), Y(y), X_length(x_length), Y_length(y_length)
@@ -74,9 +59,27 @@ public:
 		return c[X_length][Y_length];
 	}
 
-	void print(const std::string &sep=", ")
-	{
-		print(X_length, Y_length, sep);
+	std::vector<Item> get_LCS() const {
+		std::vector<Item> lcs;
+		int i = X_length, j = Y_length;
+		while (i > 0 && j > 0) {
+			switch (b[i][j]) {
+			case '\\':
+				lcs.push_back(X[i-1]);
+				--i; --j;
+				break;
+			case '|':
+				--i;
+				break;
+			case '-':
+				--j;
+				break;
+			default:
+				std::runtime_error("logic error!");
+				break;
+			}
+		}
+		return std::move(lcs);
 	}
 };
 

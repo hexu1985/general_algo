@@ -1,6 +1,6 @@
 
 RM = rm -f
-CXX = g++
+CXX = clang++
 CXXFLAGS = -Wall -g -std=c++11
 INCLUDES = -I../include/general_algo
 LDFLAGS =
